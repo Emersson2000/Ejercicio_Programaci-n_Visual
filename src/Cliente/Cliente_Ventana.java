@@ -28,8 +28,10 @@ public class Cliente_Ventana extends javax.swing.JFrame {
     private Utilidades utilidades = new Utilidades();
     private ListSelectionListener seleccionar;
     private Persona p;
+    private ModeloTabla model; 
 
     public Cliente_Ventana() {
+        model = new ModeloTabla(persona.mostrarPersonasV());
         initComponents();
         this.setLocationRelativeTo(null);
         this.setSize(720, 900);
@@ -48,7 +50,7 @@ public class Cliente_Ventana extends javax.swing.JFrame {
     }
 
     private void iniciarComponentes() {
-        colocarTabla();
+        //colocarTabla();
         camposVacios();
         botonDesabilitadosInicio();
         //seleccionarPersona();
@@ -95,6 +97,7 @@ public class Cliente_Ventana extends javax.swing.JFrame {
     }
 
     void colocarTabla() {
+        
         DefaultTableModel modeloTabla = new DefaultTableModel();
         modeloTabla.addColumn("idPersona");
         modeloTabla.addColumn("Cédula");
@@ -103,7 +106,9 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         modeloTabla.addColumn("Dirección");
         modeloTabla.addColumn("Correo");
         modeloTabla.addColumn("Teléfono");
-        tabla.setModel(persona.mostrarPersonas(modeloTabla));
+ 
+       tabla.setModel(persona.mostrarPersonas(modeloTabla));
+          
     }
 
     @SuppressWarnings("unchecked")
@@ -128,12 +133,12 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         textCorreo = new javax.swing.JTextField();
         textTelefono = new javax.swing.JTextField();
         botonBuscar = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        panel4 = new javax.swing.JPanel();
         botonAgregar = new javax.swing.JButton();
         botonEditar = new javax.swing.JButton();
         botonEliminar = new javax.swing.JButton();
         botonTraer = new javax.swing.JButton();
-        panel4 = new javax.swing.JPanel();
+        panel5 = new javax.swing.JPanel();
         desplazamiento = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
 
@@ -282,7 +287,7 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(50, 0, 0, 0);
         panel3.add(botonBuscar, gridBagConstraints);
 
-        jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 60, 5));
+        panel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 60, 5));
 
         botonAgregar.setFont(tipoFuente.fuente(tipoFuente.FightThis, 2, 30)
         );
@@ -292,7 +297,7 @@ public class Cliente_Ventana extends javax.swing.JFrame {
                 botonAgregarActionPerformed(evt);
             }
         });
-        jPanel1.add(botonAgregar);
+        panel4.add(botonAgregar);
 
         botonEditar.setFont(tipoFuente.fuente(tipoFuente.FightThis, 2, 30)
         );
@@ -302,7 +307,7 @@ public class Cliente_Ventana extends javax.swing.JFrame {
                 botonEditarActionPerformed(evt);
             }
         });
-        jPanel1.add(botonEditar);
+        panel4.add(botonEditar);
 
         botonEliminar.setFont(tipoFuente.fuente(tipoFuente.FightThis, 2, 30)
         );
@@ -312,26 +317,17 @@ public class Cliente_Ventana extends javax.swing.JFrame {
                 botonEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(botonEliminar);
+        panel4.add(botonEliminar);
 
         botonTraer.setFont(tipoFuente.fuente(tipoFuente.FightThis, 2, 30));
         botonTraer.setText("Traer");
-        jPanel1.add(botonTraer);
+        panel4.add(botonTraer);
 
         tabla.setFont(new java.awt.Font("Constantia", 2, 18)); // NOI18N
-        tabla.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        tabla.setModel(model);
         tabla.setRowMargin(0);
         tabla.setShowVerticalLines(false);
+
         tabla.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaMouseClicked(evt);
@@ -339,18 +335,18 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         });
         desplazamiento.setViewportView(tabla);
 
-        javax.swing.GroupLayout panel4Layout = new javax.swing.GroupLayout(panel4);
-        panel4.setLayout(panel4Layout);
-        panel4Layout.setHorizontalGroup(
-            panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desplazamiento, javax.swing.GroupLayout.Alignment.TRAILING)
+        javax.swing.GroupLayout panel5Layout = new javax.swing.GroupLayout(panel5);
+        panel5.setLayout(panel5Layout);
+        panel5Layout.setHorizontalGroup(
+            panel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(desplazamiento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
         );
-        panel4Layout.setVerticalGroup(
-            panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel4Layout.createSequentialGroup()
+        panel5Layout.setVerticalGroup(
+            panel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(desplazamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addComponent(desplazamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -362,8 +358,8 @@ public class Cliente_Ventana extends javax.swing.JFrame {
                 .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel3, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -374,9 +370,9 @@ public class Cliente_Ventana extends javax.swing.JFrame {
                     .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -419,7 +415,7 @@ public class Cliente_Ventana extends javax.swing.JFrame {
             return false;
         }
         if (!utilidades.validarNumeros(textTelefono.getText())) {
-            JOptionPane.showMessageDialog(rootPane, "Los datos ingresados en el telefono no son validos.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Los datos ingresados en el teléfono no son validos.", "ERROR", JOptionPane.ERROR_MESSAGE);
             textTelefono.requestFocus();
             return false;
         }
@@ -449,19 +445,23 @@ public class Cliente_Ventana extends javax.swing.JFrame {
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
         camposVacios();
-        int fila = tabla.getSelectedRow();
-        if (fila >= 0) {
-            String valor = tabla.getValueAt(fila, 0).toString();
-            persona.eliminarCliente(valor);
-            botonEliminar.setEnabled(false);
-            botonAgregar.setEnabled(true);
+//        int fila = tabla.getSelectedRow();
+//        if (fila >= 0) {
+//            String valor = tabla.getValueAt(fila, 0).toString();
+//            persona.eliminarCliente(valor);
+//            botonEliminar.setEnabled(false);
+//            botonAgregar.setEnabled(true);
+//            colocarTabla();
+//        }
+        if (persona.eliminarCliente(p.getIdPersona())) {
+            System.out.println("Persona eliminada");
             colocarTabla();
         }
 
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     private void botonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarActionPerformed
-  
+
         if (datosCliente()) {
             p = new Persona(p.getIdPersona(), textCedula.getText(), textNombre.getText(), textApellido.getText(), textDireccion.getText(), textCorreo.getText(), textTelefono.getText());
             persona.editarCliente(p);
@@ -477,21 +477,6 @@ public class Cliente_Ventana extends javax.swing.JFrame {
 
     }//GEN-LAST:event_botonEditarActionPerformed
 
-    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
-        int fila = tabla.getSelectedRow();
-
-        if (fila >= 0) {
-            botonDesabilitadosFin();
-        }
-        /*int fila = tabla.getSelectedRow();
-        textCedula.setText(tabla.getValueAt(fila, 1).toString());
-        textNombre.setText(tabla.getValueAt(fila, 2).toString());
-        textApellido.setText(tabla.getValueAt(fila, 3).toString());
-        textDireccion.setText(tabla.getValueAt(fila, 4).toString());
-        textCorreo.setText(tabla.getValueAt(fila, 5).toString());
-        textTelefono.setText(tabla.getValueAt(fila, 6).toString());*/
-    }//GEN-LAST:event_tablaMouseClicked
-
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         if (textNombre.getText().isEmpty()) {
             System.out.println("No hay ningún dato a buscar");
@@ -506,11 +491,27 @@ public class Cliente_Ventana extends javax.swing.JFrame {
             textTelefono.setText(p.getTelefono());
             botonEditar.setEnabled(true);
             botonAgregar.setEnabled(false);
+            botonEliminar.setEnabled(true);
         } else {
             System.out.println("La persona buscada no se encuentra en la base de datos");
         }
 
     }//GEN-LAST:event_botonBuscarActionPerformed
+
+    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
+        int fila = tabla.getSelectedRow();
+
+        if (fila >= 0) {
+            botonDesabilitadosFin();
+        }
+        /*int fila = tabla.getSelectedRow();
+        textCedula.setText(tabla.getValueAt(fila, 1).toString());
+        textNombre.setText(tabla.getValueAt(fila, 2).toString());
+        textApellido.setText(tabla.getValueAt(fila, 3).toString());
+        textDireccion.setText(tabla.getValueAt(fila, 4).toString());
+        textCorreo.setText(tabla.getValueAt(fila, 5).toString());
+        textTelefono.setText(tabla.getValueAt(fila, 6).toString());*/
+    }//GEN-LAST:event_tablaMouseClicked
 
     public static void main(String args[]) {
 
@@ -535,11 +536,11 @@ public class Cliente_Ventana extends javax.swing.JFrame {
     private javax.swing.JLabel etiquetaDireccion;
     private javax.swing.JLabel etiquetaNombre;
     private javax.swing.JLabel etiquetaRegistro;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel panel1;
     private javax.swing.JPanel panel2;
     private javax.swing.JPanel panel3;
     private javax.swing.JPanel panel4;
+    private javax.swing.JPanel panel5;
     private javax.swing.JTable tabla;
     private javax.swing.JTextField textApellido;
     private javax.swing.JTextField textCedula;

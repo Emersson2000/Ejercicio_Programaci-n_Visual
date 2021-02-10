@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -45,6 +46,34 @@ public class Controlador_BD {
             System.out.println("Error: " + ex);
         }
         return modeloTabla;
+    }
+    public ArrayList<Persona> mostrarPersonasV() {
+
+        String lista[] = new String[7];
+        String sql = "SELECT * FROM persona";
+        ArrayList<Persona> per = new ArrayList<Persona>();
+        Persona p;
+        Statement datos;
+        try {
+            datos = con.createStatement();
+            ResultSet res = datos.executeQuery(sql);
+
+            while (res.next()) {
+                String id  = res.getString(1);
+                String cedula = res.getString(2);
+                String nombre = res.getString(3);
+                String apellido = res.getString(4);
+                String direccion = res.getString(5);
+                String correo = res.getString(6);
+                String telefono = res.getString(7);
+                p = new Persona(id, cedula, nombre, apellido, direccion, correo, telefono);
+                per.add(p);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex);
+        }
+        return per;
     }
 
     public boolean ingresarPersona(Persona cliente) {
