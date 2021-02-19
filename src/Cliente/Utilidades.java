@@ -1,7 +1,11 @@
 package Cliente;
 
+import java.awt.TextField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JTextField;
 
 public class Utilidades {
 
@@ -72,5 +76,22 @@ public class Utilidades {
         Pattern valido = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
         Matcher comparar = valido.matcher(correo);
         return comparar.find();
+    }
+    
+    public void soloLetras(JTextField texto) {
+        texto.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent km) {
+                if (texto.getText().length() >= 10) {
+                    km.consume();
+                }
+                
+                char c = km.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    km.consume();
+                }
+            }
+        });
+        
     }
 }

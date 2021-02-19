@@ -20,12 +20,13 @@ public class Controlador_BD {
     private Conexion_Base_De_Datos conexion = new Conexion_Base_De_Datos();
     private Connection con = conexion.Conexion_Mysql();
     Persona persona = new Persona();
+    private String  columnas[] = {"idCliente","Cédula", "Nombre", "Apellido", "Dirección", "Correo", "Teléfono"};
 
-    public DefaultTableModel mostrarPersonas(DefaultTableModel modeloTabla) {
-
+    public DefaultTableModel mostrarPersonasPorDato(String nombre, String id) {
+        DefaultTableModel modeloTabla = new DefaultTableModel(null, columnas);
         String lista[] = new String[7];
-        String sql = "SELECT * FROM persona";
-
+        String sql = "SELECT * FROM persona WHERE " + nombre + " LIKE '%" + id + "%'"; 
+        // SELECT * FROM persona WHERE id LIKE '%"buscar"%' OR nombre '%"buscar"%'";
         Statement datos;
         try {
             datos = con.createStatement();
@@ -47,6 +48,7 @@ public class Controlador_BD {
         }
         return modeloTabla;
     }
+    
     public ArrayList<Persona> mostrarPersonasV() {
 
         String lista[] = new String[7];
@@ -59,6 +61,7 @@ public class Controlador_BD {
             ResultSet res = datos.executeQuery(sql);
 
             while (res.next()) {
+                p = new Persona();
                 String id  = res.getString(1);
                 String cedula = res.getString(2);
                 String nombre = res.getString(3);
@@ -182,5 +185,7 @@ public class Controlador_BD {
         });
 
     }
+    
+    
 
 }
