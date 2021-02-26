@@ -15,7 +15,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-public class Controlador_BD {
+public class Controlador_BD_Cliente {
 
     private Conexion_Base_De_Datos conexion = new Conexion_Base_De_Datos();
     private Connection con = conexion.Conexion_Mysql();
