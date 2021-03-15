@@ -1,5 +1,7 @@
 package Cliente;
 
+import java.sql.Date;
+
 public class Persona {
     
     
@@ -10,6 +12,8 @@ public class Persona {
     private String direccion;
     private String correo;
     private String telefono;
+    private Date fechaRegistro;
+    private int genero;
 
     public Persona(String idPersona, String cedula, String nombre, String apellido, String direccion, String correo, String telefono) {
         this.idPersona = idPersona;
@@ -28,6 +32,18 @@ public class Persona {
         this.direccion = direccion;
         this.correo = correo;
         this.telefono = telefono;
+    }
+
+    public Persona(String idPersona, String cedula, String nombre, String apellido, String direccion, String correo, String telefono, Date fechaRegistro, int genero) {
+        this.idPersona = idPersona;
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.direccion = direccion;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.fechaRegistro = fechaRegistro;
+        this.genero = genero;
     }
     
     
@@ -91,10 +107,29 @@ public class Persona {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
+
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public int getGenero() {
+        return genero;
+    }
+
+    public void setGenero(int genero) {
+        this.genero = genero;
+    }
+    
+    
     
     @Override
     public String toString() {
         return "Cédula: " + cedula + "\nNombre: " + nombre + "\nApellidos: " + apellido +
-                "\nDirección: " + direccion + "\nCorreo: " + correo + "\nTeléfono: " + telefono + "\n";
+                "\nDirección: " + direccion + "\nCorreo: " + correo + "\nTeléfono: " + telefono + 
+                "\nFecha de Registro: " + fechaRegistro + "\nGénero: " + genero + "\n";
     }
 }

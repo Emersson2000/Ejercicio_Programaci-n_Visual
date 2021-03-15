@@ -5,6 +5,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -44,6 +50,11 @@ public class Cliente_Ventana extends javax.swing.JFrame {
     private DefaultComboBoxModel modeloComboInventario = new DefaultComboBoxModel();
     private boolean lista;
     private boolean inveBoolean;
+    private int x;
+    private int y;
+    private boolean movi = true;
+    private int variableX;
+    private int variableY;
 
     public Cliente_Ventana() {
         model = new ModeloTabla(persona.mostrarPersonasV());
@@ -51,6 +62,8 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setSize(937, 1025);
         iniciarComponentes();
+        leerArchivo();
+        panel9.setLayout(null);
         persona.numeros(textCedula);
         persona.numeros(textTelefono);
         persona.letras(textNombre);
@@ -603,14 +616,14 @@ public class Cliente_Ventana extends javax.swing.JFrame {
             .addGroup(panelRegistroLayout.createSequentialGroup()
                 .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelRegistroLayout.createSequentialGroup()
+                        .addComponent(panelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(panelBuscarText, javax.swing.GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE))
+                    .addGroup(panelRegistroLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(panel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(panel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(panelRegistroLayout.createSequentialGroup()
-                        .addComponent(panelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelBuscarText, javax.swing.GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)))
+                            .addComponent(panel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
             .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRegistroLayout.createSequentialGroup()
@@ -626,9 +639,9 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         panelRegistroLayout.setVerticalGroup(
             panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRegistroLayout.createSequentialGroup()
-                .addContainerGap(505, Short.MAX_VALUE)
+                .addContainerGap(481, Short.MAX_VALUE)
                 .addComponent(panel4, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(30, 30, 30)
                 .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelBuscarText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -642,7 +655,7 @@ public class Cliente_Ventana extends javax.swing.JFrame {
                     .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(540, Short.MAX_VALUE)))
+                    .addContainerGap(548, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Registro", panelRegistro);
@@ -1098,17 +1111,25 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(50, 0, 0, 0);
         panel8.add(botonBuscarInventario1, gridBagConstraints);
 
-        panel9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 60, 5));
+        panel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         botonAgregarInventario.setFont(tipoFuente.fuente(tipoFuente.FightThis, 2, 30)
         );
         botonAgregarInventario.setText("Agregar");
+        botonAgregarInventario.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                botonAgregarInventarioMouseDragged(evt);
+            }
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                botonAgregarInventarioMouseMoved(evt);
+            }
+        });
         botonAgregarInventario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAgregarInventarioActionPerformed(evt);
             }
         });
-        panel9.add(botonAgregarInventario);
+        panel9.add(botonAgregarInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 5, -1, -1));
 
         botonEditarInventario.setFont(tipoFuente.fuente(tipoFuente.FightThis, 2, 30)
         );
@@ -1118,7 +1139,7 @@ public class Cliente_Ventana extends javax.swing.JFrame {
                 botonEditarInventarioActionPerformed(evt);
             }
         });
-        panel9.add(botonEditarInventario);
+        panel9.add(botonEditarInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 5, -1, -1));
 
         botonEliminarInventario.setFont(tipoFuente.fuente(tipoFuente.FightThis, 2, 30)
         );
@@ -1128,11 +1149,11 @@ public class Cliente_Ventana extends javax.swing.JFrame {
                 botonEliminarInventarioActionPerformed(evt);
             }
         });
-        panel9.add(botonEliminarInventario);
+        panel9.add(botonEliminarInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(461, 5, -1, -1));
 
         botonTraerInventario.setFont(tipoFuente.fuente(tipoFuente.FightThis, 2, 30));
         botonTraerInventario.setText("Traer");
-        panel9.add(botonTraerInventario);
+        panel9.add(botonTraerInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(597, 5, -1, -1));
 
         panelBuscar2.setLayout(new java.awt.GridBagLayout());
 
@@ -1468,29 +1489,6 @@ public class Cliente_Ventana extends javax.swing.JFrame {
 
     }//GEN-LAST:event_botonEditarActionPerformed
 
-    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
-        lista = true;
-
-        if (textNombre.getText().isEmpty()) {
-            System.out.println("No hay ningún dato a buscar");
-        } else if (persona.obtenerPersona(textNombre.getText()) != null) {
-            p = new Persona();
-            p = persona.obtenerPersona(textNombre.getText());
-            textCedula.setText(p.getCedula());
-            textNombre.setText(p.getNombre());
-            textApellido.setText(p.getApellido());
-            textDireccion.setText(p.getDireccion());
-            textCorreo.setText(p.getCorreo());
-            textTelefono.setText(p.getTelefono());
-            botonEditar.setEnabled(true);
-            botonAgregar.setEnabled(false);
-            botonEliminar.setEnabled(true);
-        } else {
-            System.out.println("La persona buscada no se encuentra en la base de datos");
-        }
-
-    }//GEN-LAST:event_botonBuscarActionPerformed
-
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
         lista = false;
 
@@ -1624,8 +1622,79 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tablaInventarioMouseClicked
 
+    private void botonAgregarInventarioMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAgregarInventarioMouseDragged
+        if (movi) {
+            x = evt.getX();
+            y = evt.getY();
+            movi = false;
+        }
+
+        botonAgregarInventario.setLocation(botonAgregarInventario.getX() + evt.getX() - x, botonAgregarInventario.getY() + evt.getY() - y);
+        variableX = botonAgregarInventario.getX() + evt.getX() - x;
+        variableY = botonAgregarInventario.getY() + evt.getY() - y;
+        
+        crearArchivo();
+    }//GEN-LAST:event_botonAgregarInventarioMouseDragged
+
+    private void botonAgregarInventarioMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAgregarInventarioMouseMoved
+        if (!movi) {
+            movi = true;
+        }
+    }//GEN-LAST:event_botonAgregarInventarioMouseMoved
+
+    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
+        lista = true;
+
+        if (textNombre.getText().isEmpty()) {
+            System.out.println("No hay ningún dato a buscar");
+        } else if (persona.obtenerPersona(textNombre.getText()) != null) {
+            p = new Persona();
+            p = persona.obtenerPersona(textNombre.getText());
+            textCedula.setText(p.getCedula());
+            textNombre.setText(p.getNombre());
+            textApellido.setText(p.getApellido());
+            textDireccion.setText(p.getDireccion());
+            textCorreo.setText(p.getCorreo());
+            textTelefono.setText(p.getTelefono());
+            botonEditar.setEnabled(true);
+            botonAgregar.setEnabled(false);
+            botonEliminar.setEnabled(true);
+        } else {
+            System.out.println("La persona buscada no se encuentra en la base de datos");
+        }
+    }//GEN-LAST:event_botonBuscarActionPerformed
+
+     public void crearArchivo() {
+        File archivo = new File("posicion.txt");
+        try {
+            FileWriter escribir = new FileWriter(archivo);
+            escribir.write(variableX + "_" + variableY);
+            escribir.close();
+            leerArchivo();
+        } catch (IOException ex) {
+            System.err.println("Error: " + ex);
+        }
+    }
+
+    public void leerArchivo() {
+        String cadena, dato[];
+        try {
+            FileReader lector = new FileReader("posicion.txt");
+            BufferedReader leer = new BufferedReader(lector);
+            cadena = leer.readLine();
+            System.out.println(cadena);
+            dato = cadena.split("_");
+            variableX = Integer.parseInt(dato[0]);
+            variableY = Integer.parseInt(dato[1]);
+            botonAgregarInventario.setBounds(variableX, variableY, 110, 50);
+        } catch (FileNotFoundException ex) {
+            System.err.println("Error: " + ex);
+        } catch (IOException ex) {
+            System.err.println("Error: " + ex);
+        }
+    }
     public static void main(String args[]) {
-//        
+        
 //        try {
 //            UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
 //        } catch (ClassNotFoundException ex) {
