@@ -1,10 +1,9 @@
 package Cliente;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Persona {
-    
-    
+
     private String idPersona;
     private String cedula;
     private String nombre;
@@ -14,6 +13,8 @@ public class Persona {
     private String telefono;
     private Date fechaRegistro;
     private int genero;
+    private Date fechaActualización;
+    private Date fechaNacimiento;
 
     public Persona(String idPersona, String cedula, String nombre, String apellido, String direccion, String correo, String telefono) {
         this.idPersona = idPersona;
@@ -34,7 +35,18 @@ public class Persona {
         this.telefono = telefono;
     }
 
-    public Persona(String idPersona, String cedula, String nombre, String apellido, String direccion, String correo, String telefono, Date fechaRegistro, int genero) {
+    public Persona(String idPersona, String cedula, String nombre, String apellido, String direccion, String correo, String telefono, Date fechaRegistro) {
+        this.idPersona = idPersona;
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.direccion = direccion;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public Persona(String idPersona, String cedula, String nombre, String apellido, String direccion, String correo, String telefono, Date fechaRegistro, int genero, Date fechaActualización, Date fechaNacimiento) {
         this.idPersona = idPersona;
         this.cedula = cedula;
         this.nombre = nombre;
@@ -44,12 +56,15 @@ public class Persona {
         this.telefono = telefono;
         this.fechaRegistro = fechaRegistro;
         this.genero = genero;
+        this.fechaActualización = fechaActualización;
+        this.fechaNacimiento = fechaNacimiento;
     }
-    
-    
-    
+
+
+
+
     public Persona() {
-        
+
     }
 
     public String getIdPersona() {
@@ -123,13 +138,27 @@ public class Persona {
     public void setGenero(int genero) {
         this.genero = genero;
     }
-    
-    
-    
+
+    public Date getFechaActualización() {
+        return fechaActualización;
+    }
+
+    public void setFechaActualización(Date fechaActualización) {
+        this.fechaActualización = fechaActualización;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
     @Override
     public String toString() {
-        return "Cédula: " + cedula + "\nNombre: " + nombre + "\nApellidos: " + apellido +
-                "\nDirección: " + direccion + "\nCorreo: " + correo + "\nTeléfono: " + telefono + 
-                "\nFecha de Registro: " + fechaRegistro + "\nGénero: " + genero + "\n";
+        return "Cédula: " + cedula + "\nNombre: " + nombre + "\nApellidos: " + apellido
+                + "\nDirección: " + direccion + "\nCorreo: " + correo + "\nTeléfono: " + telefono
+                + "\nFecha de Registro: " + fechaRegistro + "\nGénero: " + genero + "\n";
     }
 }

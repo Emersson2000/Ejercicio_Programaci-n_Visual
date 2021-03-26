@@ -3,6 +3,11 @@ package Cliente;
 import java.awt.TextField;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JTextField;
@@ -77,7 +82,7 @@ public class Utilidades {
         Matcher comparar = valido.matcher(correo);
         return comparar.find();
     }
-    
+
     public void soloLetras(JTextField texto) {
         texto.addKeyListener(new KeyAdapter() {
             @Override
@@ -85,13 +90,32 @@ public class Utilidades {
                 if (texto.getText().length() >= 10) {
                     km.consume();
                 }
-                
+
                 char c = km.getKeyChar();
                 if (!Character.isDigit(c)) {
                     km.consume();
                 }
             }
         });
-        
+
     }
+
+    public String fechaRegistro(Date fecha) {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("YYYY-MM-dd");
+        return formatoFecha.format(fecha);
+    }
+
+////    
+//    public Date Registro() {
+//        Date fechaSql;
+//        try {
+//            java.util.Date fecha = new java.util.Date();
+//            SimpleDateFormat formatoFecha = new SimpleDateFormat("YYYY-MM-dd");
+//            java.util.Date nfecha = formatoFecha.parse(formatoFecha.format(fecha));
+//            fechaSql = new java.sql.Date(nfecha.getTime());
+//        } catch (ParseException ex) {
+//            return null;
+//        }
+//        return fechaSql;
+//    }
 }

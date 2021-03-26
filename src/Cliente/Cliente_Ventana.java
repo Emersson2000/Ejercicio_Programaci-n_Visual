@@ -3,6 +3,8 @@ package Cliente;
 import Tipografias.Fuentes;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.BufferedReader;
@@ -12,6 +14,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,13 +22,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -46,6 +53,7 @@ public class Cliente_Ventana extends javax.swing.JFrame {
     private Inventario inve;
     private ModeloTabla model;
     private DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
+    private DefaultComboBoxModel modeloComboGenero = new DefaultComboBoxModel();
     private DefaultComboBoxModel modeloComboProveedor = new DefaultComboBoxModel();
     private DefaultComboBoxModel modeloComboInventario = new DefaultComboBoxModel();
     private boolean lista;
@@ -64,12 +72,13 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         iniciarComponentes();
         leerArchivo();
         panel9.setLayout(null);
-        persona.numeros(textCedula);
+        persona.numeros(textDNI);
         persona.numeros(textTelefono);
-        persona.letras(textNombre);
+//        persona.letras(textDNI);
         persona.letras(textApellido);
         proveedor.numeros(textRucProveedor);
         inventario.soloNumeros(textCodigoInventario);
+        radioBotonCedula.setSelected(true);
     }
 
     private void iniciarComponentes() {
@@ -77,9 +86,19 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         camposVacios();
         botonDesabilitadosInicio();
         colocarComboBox();
+        colocarComboBoxGenero();
         colocarComboBoxProveedor();
         colocarComboBoxInventario();
+        radioBotones();
+        verificarCedulaOPasaporte();
         //seleccionarPersona();
+    }
+
+    public void radioBotones() {
+        ButtonGroup grupo = new ButtonGroup();
+        grupo.add(radioBotonCedula);
+        grupo.add(radioBotonPasaporte);
+
     }
 
     private void seleccionarPersona() {
@@ -88,8 +107,8 @@ public class Cliente_Ventana extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent lse) {
                 if (lse.getValueIsAdjusting()) {
                     int fila = tabla.getSelectedRow();
-                    textCedula.setText(tabla.getValueAt(fila, 1).toString());
-                    textNombre.setText(tabla.getValueAt(fila, 2).toString());
+                    textDNI.setText(tabla.getValueAt(fila, 1).toString());
+                    textDNI.setText(tabla.getValueAt(fila, 2).toString());
                     textApellido.setText(tabla.getValueAt(fila, 3).toString());
                     textDireccion.setText(tabla.getValueAt(fila, 4).toString());
                     textCorreo.setText(tabla.getValueAt(fila, 5).toString());
@@ -102,12 +121,14 @@ public class Cliente_Ventana extends javax.swing.JFrame {
     }
 
     private void camposVacios() {
-        textCedula.setText("");
+        textDNI.setText("");
         textNombre.setText("");
         textApellido.setText("");
         textDireccion.setText("");
         textCorreo.setText("");
         textTelefono.setText("");
+        comboBoxGenero.setSelectedItem("No definido");
+        dateNacimiento.setDate(null);
     }
 
     private void camposVacionProveedor() {
@@ -158,6 +179,17 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         modeloCombo.addElement("Dirección");
         modeloCombo.addElement("Correo");
         modeloCombo.addElement("Teléfono");
+
+    }
+
+    void colocarComboBoxGenero() {
+        modeloComboGenero.addElement("No definido");
+        modeloComboGenero.addElement("Hombre");
+        modeloComboGenero.addElement("Mujer");
+
+    }
+
+    void verificarCedulaOPasaporte() {
 
     }
 
@@ -233,7 +265,7 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        panelAcercaDe = new javax.swing.JTabbedPane();
         panelRegistro = new javax.swing.JPanel();
         panel4 = new javax.swing.JPanel();
         botonAgregar = new javax.swing.JButton();
@@ -241,20 +273,25 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         botonEliminar = new javax.swing.JButton();
         botonTraer = new javax.swing.JButton();
         panel3 = new javax.swing.JPanel();
-        textCedula = new javax.swing.JTextField();
-        textNombre = new javax.swing.JTextField();
+        textDNI = new javax.swing.JTextField();
         textApellido = new javax.swing.JTextField();
         textDireccion = new javax.swing.JTextField();
         textCorreo = new javax.swing.JTextField();
         textTelefono = new javax.swing.JTextField();
-        botonBuscar = new javax.swing.JButton();
+        radioBotonPasaporte = new javax.swing.JRadioButton();
+        radioBotonCedula = new javax.swing.JRadioButton();
+        textNombre = new javax.swing.JTextField();
+        comboBoxGenero = new javax.swing.JComboBox<>();
+        dateNacimiento = new com.toedter.calendar.JDateChooser();
         panel2 = new javax.swing.JPanel();
         etiquetaCedula = new javax.swing.JLabel();
         etiquetaNombre = new javax.swing.JLabel();
         etiquetaApellido = new javax.swing.JLabel();
         etiquetaDireccion = new javax.swing.JLabel();
         etiquetaCorreo = new javax.swing.JLabel();
-        etiquetTelefono = new javax.swing.JLabel();
+        etiquetTelefono1 = new javax.swing.JLabel();
+        etiquetTelefono2 = new javax.swing.JLabel();
+        etiquetTelefono3 = new javax.swing.JLabel();
         panel1 = new javax.swing.JPanel();
         etiquetaRegistro = new javax.swing.JLabel();
         panel5 = new javax.swing.JPanel();
@@ -329,6 +366,10 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         panel10 = new javax.swing.JPanel();
         desplazamiento2 = new javax.swing.JScrollPane();
         tablaInventario = new javax.swing.JTable();
+        menuBar = new javax.swing.JMenuBar();
+        menuArchivo = new javax.swing.JMenu();
+        menuFile = new javax.swing.JMenu();
+        menuAcercaDe = new javax.swing.JMenu();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -349,6 +390,7 @@ public class Cliente_Ventana extends javax.swing.JFrame {
 
         botonAgregar.setFont(tipoFuente.fuente(tipoFuente.FightThis, 2, 30)
         );
+        botonAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/disco-flexible.png"))); // NOI18N
         botonAgregar.setText("Agregar");
         botonAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -359,6 +401,7 @@ public class Cliente_Ventana extends javax.swing.JFrame {
 
         botonEditar.setFont(tipoFuente.fuente(tipoFuente.FightThis, 2, 30)
         );
+        botonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/editar.png"))); // NOI18N
         botonEditar.setText("Editar");
         botonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -369,6 +412,7 @@ public class Cliente_Ventana extends javax.swing.JFrame {
 
         botonEliminar.setFont(tipoFuente.fuente(tipoFuente.FightThis, 2, 30)
         );
+        botonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/basura.png"))); // NOI18N
         botonEliminar.setText("Eliminar");
         botonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -378,145 +422,93 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         panel4.add(botonEliminar);
 
         botonTraer.setFont(tipoFuente.fuente(tipoFuente.FightThis, 2, 30));
+        botonTraer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/frente.png"))); // NOI18N
         botonTraer.setText("Traer");
         panel4.add(botonTraer);
 
-        panel3.setLayout(new java.awt.GridBagLayout());
+        panel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        textCedula.setBackground(new java.awt.Color(255, 255, 255));
-        textCedula.setFont(tipoFuente.fuente(tipoFuente.Theano, 2, 25));
-        textCedula.setForeground(new java.awt.Color(0, 0, 0));
-        textCedula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textCedulaActionPerformed(evt);
+        textDNI.setFont(tipoFuente.fuente(tipoFuente.Theano, 2, 25)
+        );
+        textDNI.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                textDNIFocusLost(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 260;
-        gridBagConstraints.weightx = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(50, 0, 0, 0);
-        panel3.add(textCedula, gridBagConstraints);
-
-        textNombre.setFont(tipoFuente.fuente(tipoFuente.Theano, 2, 25)
-        );
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 260;
-        gridBagConstraints.weightx = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
-        panel3.add(textNombre, gridBagConstraints);
+        panel3.add(textDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 470, -1));
 
         textApellido.setFont(tipoFuente.fuente(tipoFuente.Theano, 2, 25)
         );
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 260;
-        gridBagConstraints.weightx = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
-        panel3.add(textApellido, gridBagConstraints);
+        panel3.add(textApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 641, -1));
 
         textDireccion.setFont(tipoFuente.fuente(tipoFuente.Theano, 2, 25)
         );
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 260;
-        gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
-        panel3.add(textDireccion, gridBagConstraints);
+        panel3.add(textDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 641, -1));
 
         textCorreo.setFont(tipoFuente.fuente(tipoFuente.Theano, 2, 25)
         );
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 260;
-        gridBagConstraints.weightx = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
-        panel3.add(textCorreo, gridBagConstraints);
+        panel3.add(textCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 641, -1));
 
         textTelefono.setFont(tipoFuente.fuente(tipoFuente.Theano, 2, 25)
         );
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 260;
-        gridBagConstraints.weightx = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
-        panel3.add(textTelefono, gridBagConstraints);
+        panel3.add(textTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 641, -1));
 
-        botonBuscar.setFont(tipoFuente.fuente(tipoFuente.FightThis, 2, 30));
-        botonBuscar.setText("Buscar");
-        botonBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonBuscarActionPerformed(evt);
+        radioBotonPasaporte.setText("Pasaporte");
+        radioBotonPasaporte.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioBotonPasaporteMouseClicked(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.ipadx = 15;
-        gridBagConstraints.insets = new java.awt.Insets(50, 0, 0, 0);
-        panel3.add(botonBuscar, gridBagConstraints);
+        panel3.add(radioBotonPasaporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 20, -1, -1));
 
-        panel2.setLayout(new java.awt.GridBagLayout());
+        radioBotonCedula.setText("Cédula");
+        panel3.add(radioBotonCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, -1, -1));
+
+        textNombre.setFont(tipoFuente.fuente(tipoFuente.Theano, 2, 25)
+        );
+        panel3.add(textNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 641, -1));
+
+        comboBoxGenero.setFont(tipoFuente.fuente(tipoFuente.Emberly, 1, 24)
+        );
+        comboBoxGenero.setModel(modeloComboGenero);
+        panel3.add(comboBoxGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 150, -1));
+
+        dateNacimiento.setFont(tipoFuente.fuente(tipoFuente.Theano, 2, 25));
+        panel3.add(dateNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 290, 40));
+
+        panel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         etiquetaCedula.setFont(tipoFuente.fuente(tipoFuente.Theano, 2, 25));
-        etiquetaCedula.setText("Cédula:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(40, 0, 0, 0);
-        panel2.add(etiquetaCedula, gridBagConstraints);
+        etiquetaCedula.setText("DNI:");
+        panel2.add(etiquetaCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 115, -1));
 
         etiquetaNombre.setFont(tipoFuente.fuente(tipoFuente.Theano, 2, 25));
         etiquetaNombre.setText("Nombre:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(25, 0, 0, 0);
-        panel2.add(etiquetaNombre, gridBagConstraints);
+        panel2.add(etiquetaNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 115, -1));
 
         etiquetaApellido.setFont(tipoFuente.fuente(tipoFuente.Theano, 2, 25));
         etiquetaApellido.setText("Apellido:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(25, 0, 0, 0);
-        panel2.add(etiquetaApellido, gridBagConstraints);
+        panel2.add(etiquetaApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 115, -1));
 
         etiquetaDireccion.setFont(tipoFuente.fuente(tipoFuente.Theano, 2, 25));
         etiquetaDireccion.setText("Dirección:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(25, 0, 0, 0);
-        panel2.add(etiquetaDireccion, gridBagConstraints);
+        panel2.add(etiquetaDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 115, -1));
 
         etiquetaCorreo.setFont(tipoFuente.fuente(tipoFuente.Theano, 2, 25));
         etiquetaCorreo.setText("Correo:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(25, 0, 0, 0);
-        panel2.add(etiquetaCorreo, gridBagConstraints);
+        panel2.add(etiquetaCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 224, 115, -1));
 
-        etiquetTelefono.setFont(tipoFuente.fuente(tipoFuente.Theano, 2, 25));
-        etiquetTelefono.setText("Teléfono:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(25, 0, 0, 0);
-        panel2.add(etiquetTelefono, gridBagConstraints);
+        etiquetTelefono1.setFont(tipoFuente.fuente(tipoFuente.Theano, 2, 25));
+        etiquetTelefono1.setText("Teléfono:");
+        panel2.add(etiquetTelefono1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 115, -1));
+
+        etiquetTelefono2.setFont(tipoFuente.fuente(tipoFuente.Theano, 2, 25));
+        etiquetTelefono2.setText("Género:");
+        panel2.add(etiquetTelefono2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 115, -1));
+
+        etiquetTelefono3.setFont(tipoFuente.fuente(tipoFuente.Theano, 2, 25));
+        etiquetTelefono3.setText("Género:");
+        panel2.add(etiquetTelefono3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 115, -1));
 
         etiquetaRegistro.setFont(tipoFuente.fuente(tipoFuente.Skaters, 1, 30)
         );
@@ -535,7 +527,7 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         tabla.setRowMargin(0);
         tabla.setShowVerticalLines(false);
         tabla.setBounds(0, 650, 830, 300);
-        tabla.getTableHeader().setFont(new Font("Constantia", Font.BOLD, 22));
+        tabla.getTableHeader().setFont(new Font("Constantia", Font.BOLD, 18));
         tabla.getTableHeader().setOpaque(true);
         tabla.getTableHeader().setBackground(new Color(32, 136, 203));
         tabla.getTableHeader().setForeground(new Color(255, 255, 255));
@@ -653,12 +645,12 @@ public class Cliente_Ventana extends javax.swing.JFrame {
                     .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(548, Short.MAX_VALUE)))
+                        .addComponent(panel3, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
+                        .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addContainerGap(437, Short.MAX_VALUE)))
         );
 
-        jTabbedPane1.addTab("Registro", panelRegistro);
+        panelAcercaDe.addTab("Registro", panelRegistro);
 
         panelProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder("Proveedor"));
 
@@ -969,7 +961,7 @@ public class Cliente_Ventana extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Proveedor", jPanel2);
+        panelAcercaDe.addTab("Proveedor", jPanel2);
 
         jLabel2.setFont(tipoFuente.fuente(tipoFuente.Skaters, 1, 30)
         );
@@ -1293,42 +1285,276 @@ public class Cliente_Ventana extends javax.swing.JFrame {
                     .addContainerGap(336, Short.MAX_VALUE)))
         );
 
-        jTabbedPane1.addTab("Inventario", panelInventario);
+        panelAcercaDe.addTab("Inventario", panelInventario);
+
+        menuArchivo.setText("File");
+        menuBar.add(menuArchivo);
+
+        menuFile.setText("Edit");
+        menuBar.add(menuFile);
+
+        menuAcercaDe.setText("Acerca de");
+        menuAcercaDe.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuAcercaDeMouseClicked(evt);
+            }
+        });
+        menuBar.add(menuAcercaDe);
+
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(panelAcercaDe)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1)
+                .addComponent(panelAcercaDe)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCedulaActionPerformed
+    private void tablaInventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaInventarioMouseClicked
+        int fila = tablaInventario.getSelectedRow();
+        if (fila >= 0) {
+            String id = tablaInventario.getValueAt(fila, 0).toString();
+            String codigo = tablaInventario.getValueAt(fila, 1).toString();
+            String descri = tablaInventario.getValueAt(fila, 2).toString();
+            String compra = tablaInventario.getValueAt(fila, 3).toString();
+            String venta = tablaInventario.getValueAt(fila, 4).toString();
+            String producto = tablaInventario.getValueAt(fila, 5).toString();
+            textCodigoInventario.setText(codigo);
+            textDescripcionInventario.setText(descri);
+            textP_CompraInventario.setText(compra);
+            textP_VentaInventario.setText(venta);
+            textProductosInventario.setText(producto);
+            inve = new Inventario(Integer.parseInt(id), codigo, descri, compra, venta, producto);
+            inveBoolean = true;
+        }
+    }//GEN-LAST:event_tablaInventarioMouseClicked
+
+    private void botonBuscarInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarInventarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textCedulaActionPerformed
+    }//GEN-LAST:event_botonBuscarInventarioActionPerformed
+
+    private void textBuscarInventarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textBuscarInventarioKeyReleased
+        buscarInventario(textBuscarInventario.getText());
+    }//GEN-LAST:event_textBuscarInventarioKeyReleased
+
+    private void botonEliminarInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarInventarioActionPerformed
+        int fila = tablaInventario.getSelectedRow();
+        if (fila >= 0) {
+            inventario.eliminarInventario(inve.getIdInventario());
+            mostrarTabla();
+            camposVaciosInventario();
+        }
+    }//GEN-LAST:event_botonEliminarInventarioActionPerformed
+
+    private void botonEditarInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarInventarioActionPerformed
+        if (inveBoolean == true) {
+            Inventario in = new Inventario(inve.getIdInventario(), textCodigoInventario.getText(), textDescripcionInventario.getText(), textP_CompraInventario.getText(), textP_VentaInventario.getText(), textProductosInventario.getText());
+            inventario.editarInventario(in);
+            mostrarTabla();
+            camposVaciosInventario();
+        }
+
+    }//GEN-LAST:event_botonEditarInventarioActionPerformed
+
+    private void botonAgregarInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarInventarioActionPerformed
+        if (datosInventario()) {
+            Inventario in = new Inventario(textCodigoInventario.getText(), textDescripcionInventario.getText(), textP_CompraInventario.getText(), textP_VentaInventario.getText(), textProductosInventario.getText());
+            inventario.ingresarInventario(in);
+            mostrarTabla();
+            camposVaciosInventario();
+        }
+    }//GEN-LAST:event_botonAgregarInventarioActionPerformed
+
+    private void botonAgregarInventarioMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAgregarInventarioMouseMoved
+        if (!movi) {
+            movi = true;
+        }
+    }//GEN-LAST:event_botonAgregarInventarioMouseMoved
+
+    private void botonAgregarInventarioMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAgregarInventarioMouseDragged
+        if (movi) {
+            x = evt.getX();
+            y = evt.getY();
+            movi = false;
+        }
+
+        botonAgregarInventario.setLocation(botonAgregarInventario.getX() + evt.getX() - x, botonAgregarInventario.getY() + evt.getY() - y);
+        variableX = botonAgregarInventario.getX() + evt.getX() - x;
+        variableY = botonAgregarInventario.getY() + evt.getY() - y;
+
+        crearArchivo();
+    }//GEN-LAST:event_botonAgregarInventarioMouseDragged
+
+    private void botonBuscarInventario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarInventario1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonBuscarInventario1ActionPerformed
+
+    private void textCodigoInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCodigoInventarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textCodigoInventarioActionPerformed
+
+    private void tablaProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaProveedorMouseClicked
+        int fila = tablaProveedor.getSelectedRow();
+        textRucProveedor.setText(tablaProveedor.getValueAt(fila, 1).toString());
+        textSocialProveedor.setText(tablaProveedor.getValueAt(fila, 2).toString());
+        textActividadProveedor.setText(tablaProveedor.getValueAt(fila, 3).toString());
+        textNombreProveedor.setText(tablaProveedor.getValueAt(fila, 4).toString());
+        textApellidoProveedor.setText(tablaProveedor.getValueAt(fila, 5).toString());
+        textTelefonoProveedor.setText(tablaProveedor.getValueAt(fila, 6).toString());
+        textCorreoProveedor.setText(tablaProveedor.getValueAt(fila, 7).toString());
+    }//GEN-LAST:event_tablaProveedorMouseClicked
+
+    private void textBuscarProveedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textBuscarProveedorKeyReleased
+        buscarProveedor(textBuscarProveedor.getText());
+    }//GEN-LAST:event_textBuscarProveedorKeyReleased
+
+    private void botonEliminarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarProveedorActionPerformed
+        int filaSeleccionada = tablaProveedor.getSelectedRow();
+        if (filaSeleccionada >= 0) {
+            String valor = tablaProveedor.getValueAt(filaSeleccionada, 0).toString();
+            proveedor.eliminarCliente(valor);
+            mostrarTabla();
+            camposVacionProveedor();
+        }
+    }//GEN-LAST:event_botonEliminarProveedorActionPerformed
+
+    private void botonEditarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarProveedorActionPerformed
+        int fila = tablaProveedor.getSelectedRow();
+        if (datosProveedor()) {
+            String valor = tablaProveedor.getValueAt(fila, 0).toString();
+            Proveedor pro = new Proveedor(Integer.parseInt(valor), textRucProveedor.getText(), textSocialProveedor.getText(), textActividadProveedor.getText(), textNombreProveedor.getText(), textApellidoProveedor.getText(), textTelefonoProveedor.getText(), textCorreoProveedor.getText());
+            proveedor.editarProveedor(pro);
+            mostrarTabla();
+            camposVacionProveedor();
+        }
+    }//GEN-LAST:event_botonEditarProveedorActionPerformed
+
+    private void botonAgregarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarProveedorActionPerformed
+        if (datosProveedor()) {
+            Proveedor pro = new Proveedor(textRucProveedor.getText(), textSocialProveedor.getText(), textActividadProveedor.getText(), textNombreProveedor.getText(), textApellidoProveedor.getText(), textTelefonoProveedor.getText(), textCorreoProveedor.getText());
+            proveedor.ingresarProveedor(pro);
+            mostrarTabla();
+            camposVacionProveedor();
+        }
+    }//GEN-LAST:event_botonAgregarProveedorActionPerformed
+
+    private void botonBuscar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscar2ActionPerformed
+
+    }//GEN-LAST:event_botonBuscar2ActionPerformed
+
+    private void textBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textBuscarKeyReleased
+        buscarCliente(textBuscar.getText());
+    }//GEN-LAST:event_textBuscarKeyReleased
+
+    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
+        lista = false;
+
+        int fila = tabla.getSelectedRow();
+        String id = tabla.getValueAt(fila, 0).toString();
+        p = persona.obtenerPersona(id);
+        textDNI.setText(p.getCedula());
+        textNombre.setText(p.getNombre());
+        textApellido.setText(p.getApellido());
+        textDireccion.setText(p.getDireccion());
+        textCorreo.setText(p.getCorreo());
+        textTelefono.setText(p.getTelefono());
+        comboBoxGenero.setSelectedIndex(p.getGenero());
+        dateNacimiento.setDate(p.getFechaNacimiento());
+        botonEliminar.setEnabled(true);
+        botonEditar.setEnabled(true);
+    }//GEN-LAST:event_tablaMouseClicked
+
+    private void radioBotonPasaporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioBotonPasaporteMouseClicked
+
+    }//GEN-LAST:event_radioBotonPasaporteMouseClicked
+
+    private void textDNIFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textDNIFocusLost
+        if (radioBotonCedula.isSelected()) {
+            if (!utilidades.validadorDeCedula(textDNI.getText())) {
+                JOptionPane.showMessageDialog(rootPane, "la cédula ingresada no es valida", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (radioBotonPasaporte.isSelected()) {
+
+        }
+    }//GEN-LAST:event_textDNIFocusLost
+
+    private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
+        camposVacios();
+        if (lista == false) {
+            int filaSeleccionada = tabla.getSelectedRow();
+            if (filaSeleccionada >= 0) {
+                String valor = tabla.getValueAt(filaSeleccionada, 0).toString();
+                persona.eliminarCliente(valor);
+                botonEliminar.setEnabled(false);
+                botonAgregar.setEnabled(true);
+                colocarTabla();
+            }
+
+        } else if (lista == true) {
+            if (persona.eliminarCliente(p.getIdPersona())) {
+                System.out.println("Persona eliminada");
+                colocarTabla();
+            }
+        }
+    }//GEN-LAST:event_botonEliminarActionPerformed
+
+    private void botonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarActionPerformed
+
+        if (datosCliente()) {
+            java.util.Date f = p.getFechaRegistro();
+            p = new Persona(p.getIdPersona(), textDNI.getText(), textNombre.getText(), textApellido.getText(), textDireccion.getText(), textCorreo.getText(), textTelefono.getText(), f);
+            p.setGenero(comboBoxGenero.getSelectedIndex());
+            p.setFechaActualización(new Date());
+            if (dateNacimiento.getDate() != null) {
+                p.setFechaNacimiento(dateNacimiento.getDate());
+            }
+            persona.editarCliente(p);
+            mostrarTabla();
+            camposVacios();
+            botonEditar.setEnabled(false);
+            botonAgregar.setEnabled(true);
+        }
+
+        //        } else {
+        //            JOptionPane.showMessageDialog(null, "Fila no seleccionada");
+        //        }
+    }//GEN-LAST:event_botonEditarActionPerformed
+
+    private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
+
+        if (datosCliente()) {
+            utilidades.fechaRegistro(new Date());
+            Persona cliente = new Persona(textDNI.getText(), textNombre.getText(), textApellido.getText(), textDireccion.getText(), textCorreo.getText(), textTelefono.getText());
+            cliente.setGenero(comboBoxGenero.getSelectedIndex());
+            cliente.setFechaRegistro(new Date());
+            if (dateNacimiento.getDate() != null) {
+                cliente.setFechaNacimiento(dateNacimiento.getDate());
+            }
+            persona.ingresarPersona(cliente);
+            mostrarTabla();
+            camposVacios();
+        }
+    }//GEN-LAST:event_botonAgregarActionPerformed
+
+    private void menuAcercaDeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuAcercaDeMouseClicked
+        AcercaDe dialog = new AcercaDe(this, true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_menuAcercaDeMouseClicked
 
     private boolean datosCliente() {
-        if (textCedula.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "En campo de cédula está vacio", "ERROR", JOptionPane.ERROR_MESSAGE);
-            textCedula.requestFocus();
-            return false;
-        }
 
-        if (!utilidades.validadorDeCedula(textCedula.getText())) {
-            JOptionPane.showMessageDialog(rootPane, "la cédula ingresada no es valida", "ERROR", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (textNombre.getText().isEmpty()) {
+        if (textDNI.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "El campo nombres no tiene datos.", "ERROR", JOptionPane.ERROR_MESSAGE);
-            textNombre.requestFocus();
+            textDNI.requestFocus();
             return false;
         }
         if (textApellido.getText().isEmpty()) {
@@ -1440,231 +1666,8 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         }
         return true;
     }
-    private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
 
-        if (datosCliente()) {
-            Persona cliente = new Persona(textCedula.getText(), textNombre.getText(), textApellido.getText(), textDireccion.getText(), textCorreo.getText(), textTelefono.getText());
-            persona.ingresarPersona(cliente);
-            mostrarTabla();
-            camposVacios();
-        }
-
-    }//GEN-LAST:event_botonAgregarActionPerformed
-
-    private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
-        camposVacios();
-        if (lista == false) {
-            int filaSeleccionada = tabla.getSelectedRow();
-            if (filaSeleccionada >= 0) {
-                String valor = tabla.getValueAt(filaSeleccionada, 0).toString();
-                persona.eliminarCliente(valor);
-                botonEliminar.setEnabled(false);
-                botonAgregar.setEnabled(true);
-                colocarTabla();
-            }
-
-        } else if (lista == true) {
-            if (persona.eliminarCliente(p.getIdPersona())) {
-                System.out.println("Persona eliminada");
-                colocarTabla();
-            }
-        }
-
-    }//GEN-LAST:event_botonEliminarActionPerformed
-
-    private void botonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarActionPerformed
-
-        if (datosCliente()) {
-            p = new Persona(p.getIdPersona(), textCedula.getText(), textNombre.getText(), textApellido.getText(), textDireccion.getText(), textCorreo.getText(), textTelefono.getText());
-            persona.editarCliente(p);
-            mostrarTabla();
-            camposVacios();
-            botonEditar.setEnabled(false);
-            botonAgregar.setEnabled(true);
-        }
-
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Fila no seleccionada");
-//        }
-
-    }//GEN-LAST:event_botonEditarActionPerformed
-
-    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
-        lista = false;
-
-        int fila = tabla.getSelectedRow();
-        textCedula.setText(tabla.getValueAt(fila, 1).toString());
-        textNombre.setText(tabla.getValueAt(fila, 2).toString());
-        textApellido.setText(tabla.getValueAt(fila, 3).toString());
-        textDireccion.setText(tabla.getValueAt(fila, 4).toString());
-        textCorreo.setText(tabla.getValueAt(fila, 5).toString());
-        textTelefono.setText(tabla.getValueAt(fila, 6).toString());
-        botonEliminar.setEnabled(true);
-
-    }//GEN-LAST:event_tablaMouseClicked
-
-    private void botonBuscar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscar2ActionPerformed
-
-    }//GEN-LAST:event_botonBuscar2ActionPerformed
-
-    private void textBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textBuscarKeyReleased
-        buscarCliente(textBuscar.getText());
-    }//GEN-LAST:event_textBuscarKeyReleased
-
-    private void tablaProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaProveedorMouseClicked
-        int fila = tablaProveedor.getSelectedRow();
-        textRucProveedor.setText(tablaProveedor.getValueAt(fila, 1).toString());
-        textSocialProveedor.setText(tablaProveedor.getValueAt(fila, 2).toString());
-        textActividadProveedor.setText(tablaProveedor.getValueAt(fila, 3).toString());
-        textNombreProveedor.setText(tablaProveedor.getValueAt(fila, 4).toString());
-        textApellidoProveedor.setText(tablaProveedor.getValueAt(fila, 5).toString());
-        textTelefonoProveedor.setText(tablaProveedor.getValueAt(fila, 6).toString());
-        textCorreoProveedor.setText(tablaProveedor.getValueAt(fila, 7).toString());
-    }//GEN-LAST:event_tablaProveedorMouseClicked
-
-    private void botonAgregarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarProveedorActionPerformed
-        if (datosProveedor()) {
-            Proveedor pro = new Proveedor(textRucProveedor.getText(), textSocialProveedor.getText(), textActividadProveedor.getText(), textNombreProveedor.getText(), textApellidoProveedor.getText(), textTelefonoProveedor.getText(), textCorreoProveedor.getText());
-            proveedor.ingresarProveedor(pro);
-            mostrarTabla();
-            camposVacionProveedor();
-        }
-
-    }//GEN-LAST:event_botonAgregarProveedorActionPerformed
-
-    private void botonEliminarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarProveedorActionPerformed
-        int filaSeleccionada = tablaProveedor.getSelectedRow();
-        if (filaSeleccionada >= 0) {
-            String valor = tablaProveedor.getValueAt(filaSeleccionada, 0).toString();
-            proveedor.eliminarCliente(valor);
-            mostrarTabla();
-            camposVacionProveedor();
-        }
-    }//GEN-LAST:event_botonEliminarProveedorActionPerformed
-
-    private void botonEditarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarProveedorActionPerformed
-        int fila = tablaProveedor.getSelectedRow();
-        if (datosProveedor()) {
-            String valor = tablaProveedor.getValueAt(fila, 0).toString();
-            Proveedor pro = new Proveedor(Integer.parseInt(valor), textRucProveedor.getText(), textSocialProveedor.getText(), textActividadProveedor.getText(), textNombreProveedor.getText(), textApellidoProveedor.getText(), textTelefonoProveedor.getText(), textCorreoProveedor.getText());
-            proveedor.editarProveedor(pro);
-            mostrarTabla();
-            camposVacionProveedor();
-        }
-
-    }//GEN-LAST:event_botonEditarProveedorActionPerformed
-
-    private void textBuscarProveedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textBuscarProveedorKeyReleased
-        buscarProveedor(textBuscarProveedor.getText());
-    }//GEN-LAST:event_textBuscarProveedorKeyReleased
-
-    private void textCodigoInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCodigoInventarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textCodigoInventarioActionPerformed
-
-    private void botonBuscarInventario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarInventario1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonBuscarInventario1ActionPerformed
-
-    private void botonAgregarInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarInventarioActionPerformed
-        if (datosInventario()) {
-            Inventario in = new Inventario(textCodigoInventario.getText(), textDescripcionInventario.getText(), textP_CompraInventario.getText(), textP_VentaInventario.getText(), textProductosInventario.getText());
-            inventario.ingresarInventario(in);
-            mostrarTabla();
-            camposVaciosInventario();
-        }
-    }//GEN-LAST:event_botonAgregarInventarioActionPerformed
-
-    private void botonEditarInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarInventarioActionPerformed
-        if (inveBoolean == true) {
-            Inventario in = new Inventario(inve.getIdInventario(), textCodigoInventario.getText(), textDescripcionInventario.getText(), textP_CompraInventario.getText(), textP_VentaInventario.getText(), textProductosInventario.getText());
-            inventario.editarInventario(in);
-            mostrarTabla();
-            camposVaciosInventario();
-        }
-
-
-    }//GEN-LAST:event_botonEditarInventarioActionPerformed
-
-    private void botonEliminarInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarInventarioActionPerformed
-        int fila = tablaInventario.getSelectedRow();
-        if (fila >= 0) {
-            inventario.eliminarInventario(inve.getIdInventario());
-            mostrarTabla();
-            camposVaciosInventario();
-        }
-    }//GEN-LAST:event_botonEliminarInventarioActionPerformed
-
-    private void textBuscarInventarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textBuscarInventarioKeyReleased
-        buscarInventario(textBuscarInventario.getText());
-    }//GEN-LAST:event_textBuscarInventarioKeyReleased
-
-    private void botonBuscarInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarInventarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonBuscarInventarioActionPerformed
-
-    private void tablaInventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaInventarioMouseClicked
-        int fila = tablaInventario.getSelectedRow();
-        if (fila >= 0) {
-            String id = tablaInventario.getValueAt(fila, 0).toString();
-            String codigo = tablaInventario.getValueAt(fila, 1).toString();
-            String descri = tablaInventario.getValueAt(fila, 2).toString();
-            String compra = tablaInventario.getValueAt(fila, 3).toString();
-            String venta = tablaInventario.getValueAt(fila, 4).toString();
-            String producto = tablaInventario.getValueAt(fila, 5).toString();
-            textCodigoInventario.setText(codigo);
-            textDescripcionInventario.setText(descri);
-            textP_CompraInventario.setText(compra);
-            textP_VentaInventario.setText(venta);
-            textProductosInventario.setText(producto);
-            inve = new Inventario(Integer.parseInt(id), codigo, descri, compra, venta, producto);
-            inveBoolean = true;
-        }
-    }//GEN-LAST:event_tablaInventarioMouseClicked
-
-    private void botonAgregarInventarioMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAgregarInventarioMouseDragged
-        if (movi) {
-            x = evt.getX();
-            y = evt.getY();
-            movi = false;
-        }
-
-        botonAgregarInventario.setLocation(botonAgregarInventario.getX() + evt.getX() - x, botonAgregarInventario.getY() + evt.getY() - y);
-        variableX = botonAgregarInventario.getX() + evt.getX() - x;
-        variableY = botonAgregarInventario.getY() + evt.getY() - y;
-        
-        crearArchivo();
-    }//GEN-LAST:event_botonAgregarInventarioMouseDragged
-
-    private void botonAgregarInventarioMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAgregarInventarioMouseMoved
-        if (!movi) {
-            movi = true;
-        }
-    }//GEN-LAST:event_botonAgregarInventarioMouseMoved
-
-    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
-        lista = true;
-
-        if (textNombre.getText().isEmpty()) {
-            System.out.println("No hay ningún dato a buscar");
-        } else if (persona.obtenerPersona(textNombre.getText()) != null) {
-            p = new Persona();
-            p = persona.obtenerPersona(textNombre.getText());
-            textCedula.setText(p.getCedula());
-            textNombre.setText(p.getNombre());
-            textApellido.setText(p.getApellido());
-            textDireccion.setText(p.getDireccion());
-            textCorreo.setText(p.getCorreo());
-            textTelefono.setText(p.getTelefono());
-            botonEditar.setEnabled(true);
-            botonAgregar.setEnabled(false);
-            botonEliminar.setEnabled(true);
-        } else {
-            System.out.println("La persona buscada no se encuentra en la base de datos");
-        }
-    }//GEN-LAST:event_botonBuscarActionPerformed
-
-     public void crearArchivo() {
+    public void crearArchivo() {
         File archivo = new File("posicion.txt");
         try {
             FileWriter escribir = new FileWriter(archivo);
@@ -1693,8 +1696,9 @@ public class Cliente_Ventana extends javax.swing.JFrame {
             System.err.println("Error: " + ex);
         }
     }
+
     public static void main(String args[]) {
-        
+
 //        try {
 //            UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
 //        } catch (ClassNotFoundException ex) {
@@ -1706,7 +1710,6 @@ public class Cliente_Ventana extends javax.swing.JFrame {
 //        } catch (UnsupportedLookAndFeelException ex) {
 //            Logger.getLogger(Cliente_Ventana.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Cliente_Ventana().setVisible(true);
@@ -1718,7 +1721,6 @@ public class Cliente_Ventana extends javax.swing.JFrame {
     private javax.swing.JButton botonAgregar;
     private javax.swing.JButton botonAgregarInventario;
     private javax.swing.JButton botonAgregarProveedor;
-    private javax.swing.JButton botonBuscar;
     private javax.swing.JButton botonBuscar2;
     private javax.swing.JButton botonBuscarInventario;
     private javax.swing.JButton botonBuscarInventario1;
@@ -1735,10 +1737,14 @@ public class Cliente_Ventana extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboBoxBuscar;
     private javax.swing.JComboBox<String> comboBoxBuscarInventario;
     private javax.swing.JComboBox<String> comboBoxBuscarProveedor;
+    private javax.swing.JComboBox<String> comboBoxGenero;
+    private com.toedter.calendar.JDateChooser dateNacimiento;
     private javax.swing.JScrollPane desplazamiento;
     private javax.swing.JScrollPane desplazamiento1;
     private javax.swing.JScrollPane desplazamiento2;
-    private javax.swing.JLabel etiquetTelefono;
+    private javax.swing.JLabel etiquetTelefono1;
+    private javax.swing.JLabel etiquetTelefono2;
+    private javax.swing.JLabel etiquetTelefono3;
     private java.awt.Label etiquetaActividad1;
     private javax.swing.JLabel etiquetaApellido;
     private javax.swing.JLabel etiquetaApellido1;
@@ -1767,7 +1773,10 @@ public class Cliente_Ventana extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JMenu menuAcercaDe;
+    private javax.swing.JMenu menuArchivo;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenu menuFile;
     private javax.swing.JPanel panel1;
     private javax.swing.JPanel panel10;
     private javax.swing.JPanel panel2;
@@ -1778,6 +1787,7 @@ public class Cliente_Ventana extends javax.swing.JFrame {
     private javax.swing.JPanel panel7;
     private javax.swing.JPanel panel8;
     private javax.swing.JPanel panel9;
+    private javax.swing.JTabbedPane panelAcercaDe;
     private javax.swing.JPanel panelBuscar;
     private javax.swing.JPanel panelBuscar1;
     private javax.swing.JPanel panelBuscar2;
@@ -1788,6 +1798,8 @@ public class Cliente_Ventana extends javax.swing.JFrame {
     private javax.swing.JPanel panelProveedor;
     private javax.swing.JPanel panelRegistro;
     private javax.swing.JPanel panelTablaProveedor;
+    private javax.swing.JRadioButton radioBotonCedula;
+    private javax.swing.JRadioButton radioBotonPasaporte;
     private javax.swing.JTable tabla;
     private javax.swing.JTable tablaInventario;
     private javax.swing.JTable tablaProveedor;
@@ -1797,10 +1809,10 @@ public class Cliente_Ventana extends javax.swing.JFrame {
     private javax.swing.JTextField textBuscar;
     private javax.swing.JTextField textBuscarInventario;
     private javax.swing.JTextField textBuscarProveedor;
-    private javax.swing.JTextField textCedula;
     private javax.swing.JTextField textCodigoInventario;
     private javax.swing.JTextField textCorreo;
     private javax.swing.JTextField textCorreoProveedor;
+    private javax.swing.JTextField textDNI;
     private javax.swing.JTextField textDescripcionInventario;
     private javax.swing.JTextField textDireccion;
     private javax.swing.JTextField textNombre;

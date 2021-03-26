@@ -1,5 +1,7 @@
 package Cliente;
 
+import java.sql.Date;
+
 /**
  * @author Emersson
  */
@@ -13,6 +15,8 @@ public class Proveedor {
     private String apell_Representante_Legal;
     private String telefono; 
     private String correo;
+    private Date fechaVencimientoDeuda;
+    private Date fechaRegistro;
 
     public Proveedor(int idProveedor, String ruc, String razon_Social, String tipo_Actividad, String nom_Representante_Legal, String apell_Representante_Legal, String telefono, String correo) {
         this.idProveedor = idProveedor;
@@ -34,6 +38,20 @@ public class Proveedor {
         this.telefono = telefono;
         this.correo = correo;
     }
+
+    public Proveedor(int idProveedor, String ruc, String razon_Social, String tipo_Actividad, String nom_Representante_Legal, String apell_Representante_Legal, String telefono, String correo, Date fechaVencimientoDeuda, Date fechaRegistro) {
+        this.idProveedor = idProveedor;
+        this.ruc = ruc;
+        this.razon_Social = razon_Social;
+        this.tipo_Actividad = tipo_Actividad;
+        this.nom_Representante_Legal = nom_Representante_Legal;
+        this.apell_Representante_Legal = apell_Representante_Legal;
+        this.telefono = telefono;
+        this.correo = correo;
+        this.fechaVencimientoDeuda = fechaVencimientoDeuda;
+        this.fechaRegistro = fechaRegistro;
+    }
+    
     
 
     public Proveedor() {
@@ -101,6 +119,22 @@ public class Proveedor {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public Date getFechaVencimientoDeuda() {
+        return fechaVencimientoDeuda;
+    }
+
+    public void setFechaVencimientoDeuda(Date fechaVencimientoDeuda) {
+        this.fechaVencimientoDeuda = fechaVencimientoDeuda;
+    }
+
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
     
     
