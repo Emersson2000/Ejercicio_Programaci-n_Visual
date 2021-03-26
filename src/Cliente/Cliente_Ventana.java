@@ -672,6 +672,11 @@ public class Cliente_Ventana extends javax.swing.JFrame {
 
         textApellidoProveedor.setFont(tipoFuente.fuente(tipoFuente.Theano, 2, 20)
         );
+        textApellidoProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textApellidoProveedorActionPerformed(evt);
+            }
+        });
 
         textNombreProveedor.setFont(tipoFuente.fuente(tipoFuente.Theano, 2, 20)
         );
@@ -1511,6 +1516,10 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         textPrecioFigoInventario.setText(String.format("%.2f", iva + (iva*0.12)));
         textPrecioNormalInventario.setText(String.format("%.2f", iva + (iva*0.15)));
     }//GEN-LAST:event_textPrecioSinIvaInventarioKeyReleased
+
+    private void textApellidoProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textApellidoProveedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textApellidoProveedorActionPerformed
 
     private boolean datosCliente() {
 
