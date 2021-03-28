@@ -99,23 +99,48 @@ public class Utilidades {
         });
 
     }
+    
+    public void Letras(JTextField texto) {
+        texto.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent km) {
+                char c = km.getKeyChar();
+                if (Character.isDigit(c) || c == '.') {
+                    
+                } else {
+                    km.consume();
+                }
+            }
+        });
+    }
+    
+    public void noDejaEscribir(JTextField texto) {
+        texto.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent km) {
+                char c = km.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    km.consume();
+                } else {
+                    km.consume();
+                }
+            }
+            
+            @Override
+            public void keyPressed(KeyEvent km) {
+                char c = km.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    km.consume();
+                } else {
+                    km.consume();
+                }
+            }
+        });
+    }
 
     public String fechaRegistro(Date fecha) {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("YYYY-MM-dd");
         return formatoFecha.format(fecha);
     }
 
-////    
-//    public Date Registro() {
-//        Date fechaSql;
-//        try {
-//            java.util.Date fecha = new java.util.Date();
-//            SimpleDateFormat formatoFecha = new SimpleDateFormat("YYYY-MM-dd");
-//            java.util.Date nfecha = formatoFecha.parse(formatoFecha.format(fecha));
-//            fechaSql = new java.sql.Date(nfecha.getTime());
-//        } catch (ParseException ex) {
-//            return null;
-//        }
-//        return fechaSql;
-//    }
 }

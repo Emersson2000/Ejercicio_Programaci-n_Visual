@@ -150,7 +150,7 @@ public class Controlador_BD_Cliente {
     public Persona obtenerPersona(String nombre) {
         Persona obtenerPersona = null;
 
-        String sql = "SELECT * FROM persona WHERE idpersona = '" + nombre + "'";
+        String sql = "SELECT * FROM persona WHERE idpersona = '" + nombre + "' OR cedulo = '" + nombre + "'";
 
         Statement datos;
         try {
