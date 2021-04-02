@@ -106,7 +106,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="panelBuscar" min="-2" pref="269" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="panelBuscarText" pref="639" max="32767" attributes="0"/>
+                              <Component id="panelBuscarText" pref="654" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
@@ -219,6 +219,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Traer"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonTraerActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -502,7 +505,10 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="desplazamiento" alignment="1" pref="233" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="desplazamiento" min="-2" pref="175" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="58" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -678,7 +684,7 @@
                           <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="textActividadProveedor" alignment="1" pref="631" max="32767" attributes="0"/>
+                              <Component id="textActividadProveedor" alignment="1" pref="646" max="32767" attributes="0"/>
                               <Component id="textSocialProveedor" alignment="1" max="32767" attributes="0"/>
                               <Component id="textRucProveedor" alignment="1" max="32767" attributes="0"/>
                               <Component id="textCorreoProveedor" alignment="1" max="32767" attributes="0"/>
@@ -1656,50 +1662,73 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jLabel3" min="-2" pref="252" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jLabel3" min="-2" pref="252" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="etiquetaNombre4" pref="203" max="32767" attributes="0"/>
-                                          <Component id="etiquetaNombre5" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="textTelefono_NotaVenta" min="-2" pref="260" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="etiquetaNombre2" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="etiquetaNombre3" alignment="0" pref="179" max="32767" attributes="0"/>
+                                      <Component id="etiquetaNombre5" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="etiquetaNombre4" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="etiquetaNombre2" max="32767" attributes="0"/>
-                                          <Component id="etiquetaNombre3" pref="203" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="textNombreCliente_NotaVenta" min="-2" pref="260" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="textNumero_NotaVenta" pref="260" max="32767" attributes="0"/>
-                                              <Component id="textCedulaNotaVenta" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
+                                  <Component id="etiquetaNombre6" alignment="0" min="-2" pref="179" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="26" pref="26" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="textIdProducto_NotaVenta" pref="200" max="32767" attributes="0"/>
+                                  <Component id="textCedulaNotaVenta" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="textNombreCliente_NotaVenta" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="textTelefono_NotaVenta" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="textNumero_NotaVenta" alignment="1" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="etiquetaNombre7" alignment="0" min="-2" pref="126" max="-2" attributes="0"/>
-                                  <Component id="etiquetaNombre8" alignment="1" min="-2" pref="126" max="-2" attributes="0"/>
+                                  <Component id="etiquetaNombre7" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <Component id="etiquetaNombre8" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
+                                  <Component id="etiquetaNombre9" alignment="0" min="-2" pref="105" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="29" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="textDireccion_NotaVetna" pref="229" max="32767" attributes="0"/>
-                                  <Component id="textFechaVenta_NotaVenta" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="textCantidad_NotaVenta" min="-2" pref="138" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="botonAgregar_NotaVenta" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="botonBusquedadAvanzada_NotaVenta" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="textDireccion_NotaVenta" min="-2" pref="138" max="-2" attributes="0"/>
+                                          <Component id="textFechaVenta_NotaVenta" min="-2" pref="138" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="etiquetaNombre10" min="-2" pref="179" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="comboPagoNotaVenta" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="287" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="etiquetaNombre13" alignment="0" min="-2" pref="179" max="-2" attributes="0"/>
+                          <Component id="etiquetaNombre11" alignment="0" min="-2" pref="179" max="-2" attributes="0"/>
+                          <Component id="etiquetaNombre12" alignment="0" min="-2" pref="179" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="textIva_NotaVenta" min="-2" pref="138" max="-2" attributes="0"/>
+                          <Component id="textTotal_NotaVenta" min="-2" pref="138" max="-2" attributes="0"/>
+                          <Component id="textSubTotal_NotaVenta" min="-2" pref="138" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1708,7 +1737,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" pref="25" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="etiquetaNombre2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="textNumero_NotaVenta" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1718,28 +1747,49 @@
                           <Component id="etiquetaNombre3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="textCedulaNotaVenta" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="etiquetaNombre4" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="etiquetaNombre5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="etiquetaNombre8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="textTelefono_NotaVenta" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="textFechaVenta_NotaVenta" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="textNombreCliente_NotaVenta" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="etiquetaNombre7" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="textDireccion_NotaVetna" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="etiquetaNombre4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textNombreCliente_NotaVenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="etiquetaNombre7" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textDireccion_NotaVenta" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="659" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="etiquetaNombre5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textTelefono_NotaVenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="etiquetaNombre8" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textFechaVenta_NotaVenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="etiquetaNombre9" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="etiquetaNombre6" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textIdProducto_NotaVenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textCantidad_NotaVenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="botonAgregar_NotaVenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="botonBusquedadAvanzada_NotaVenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="255" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="etiquetaNombre10" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="comboPagoNotaVenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="etiquetaNombre13" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textSubTotal_NotaVenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="etiquetaNombre12" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textIva_NotaVenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="etiquetaNombre11" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textTotal_NotaVenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="144" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1756,7 +1806,7 @@
             <Component class="javax.swing.JLabel" name="etiquetaNombre2">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 1, 14)" type="code"/>
+                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 1, 12)" type="code"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="N&#xda;MERO NOTA VENTA:"/>
@@ -1765,7 +1815,7 @@
             <Component class="javax.swing.JLabel" name="etiquetaNombre3">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 1, 14)" type="code"/>
+                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 1, 12)" type="code"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="C&#xc9;DULA O RUC CLIENTE:"/>
@@ -1774,7 +1824,7 @@
             <Component class="javax.swing.JLabel" name="etiquetaNombre4">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 1, 14)" type="code"/>
+                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 1, 12)" type="code"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="NOMBRE CLIENTE:"/>
@@ -1783,7 +1833,7 @@
             <Component class="javax.swing.JLabel" name="etiquetaNombre5">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 1, 14)" type="code"/>
+                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 1, 12)" type="code"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="TEL&#xc9;FONO"/>
@@ -1792,7 +1842,7 @@
             <Component class="javax.swing.JLabel" name="etiquetaNombre7">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 1, 14)" type="code"/>
+                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 1, 12)" type="code"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="text" type="java.lang.String" value="DIRECCI&#xd3;N:"/>
@@ -1801,7 +1851,7 @@
             <Component class="javax.swing.JLabel" name="etiquetaNombre8">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 1, 14)" type="code"/>
+                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 1, 12)" type="code"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="text" type="java.lang.String" value="FECHA VENTA:"/>
@@ -1820,6 +1870,9 @@
                   <Connection code="tipoFuente.fuente(tipoFuente.Theano, 2, 20)" type="code"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="utilidades.noDejaEscribir(textTelefono_NotaVenta);"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="textNombreCliente_NotaVenta">
               <Properties>
@@ -1827,6 +1880,9 @@
                   <Connection code="tipoFuente.fuente(tipoFuente.Theano, 2, 20)" type="code"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="utilidades.noDejaEscribir(textNombreCliente_NotaVenta);&#xd;&#xa;"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="textCedulaNotaVenta">
               <Properties>
@@ -1838,14 +1894,172 @@
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textCedulaNotaVentaKeyReleased"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="textDireccion_NotaVetna">
+            <Component class="javax.swing.JTextField" name="textDireccion_NotaVenta">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 2, 20)" type="code"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="utilidades.noDejaEscribir(textDireccion_NotaVenta);"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textFechaVenta_NotaVenta">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 2, 20)" type="code"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="utilidades.noDejaEscribir(textFechaVenta_NotaVenta);"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="etiquetaNombre6">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 1, 12)" type="code"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="4"/>
+                <Property name="text" type="java.lang.String" value="ID PRODUCTO:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textIdProducto_NotaVenta">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 2, 20)" type="code"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textIdProducto_NotaVentaKeyReleased"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="etiquetaNombre9">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 1, 12)" type="code"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="2"/>
+                <Property name="text" type="java.lang.String" value="CANTIDAD:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textCantidad_NotaVenta">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 2, 20)" type="code"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="textCantidad_NotaVentaFocusLost"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="utilidades.soloNumero(textCantidad_NotaVenta);&#xd;&#xa;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JButton" name="botonAgregar_NotaVenta">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="tipoFuente.fuente(tipoFuente.FightThis, 2, 18)&#xd;&#xa;" type="code"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Agregar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonAgregar_NotaVentaActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="botonBusquedadAvanzada_NotaVenta">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="tipoFuente.fuente(tipoFuente.FightThis, 2, 18)&#xd;&#xa;" type="code"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="BUSQUEDA AVANZADA"/>
+              </Properties>
+            </Component>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTable" name="tablaNotaVenta">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Constantia" size="18" style="2"/>
+                    </Property>
+                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="modeloNotaVenta" type="code"/>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="  tablaNotaVenta.setBounds(0, 650, 830, 300);&#xd;&#xa;        tablaNotaVenta.getTableHeader().setFont(new Font(&quot;Constantia&quot;, Font.BOLD, 22));&#xd;&#xa;         tablaNotaVenta.getTableHeader().setOpaque(true);&#xd;&#xa;         tablaNotaVenta.getTableHeader().setBackground(new Color(32, 136, 203));&#xd;&#xa;         tablaNotaVenta.getTableHeader().setForeground(new Color(255, 255, 255));&#xd;&#xa;         tablaNotaVenta.setRowHeight(25);&#xd;&#xa;        tablaNotaVenta.setBackground(new Color(204, 255, 204));"/>
+                  </AuxValues>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Component class="javax.swing.JLabel" name="etiquetaNombre10">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 1, 12)" type="code"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="4"/>
+                <Property name="text" type="java.lang.String" value="TIPO PAGO:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="comboPagoNotaVenta">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="tipoFuente.fuente(tipoFuente.Emberly, 1, 24)" type="code"/>
+                </Property>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="modeloComboNotaVenta" type="code"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="etiquetaNombre11">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 1, 12)" type="code"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="4"/>
+                <Property name="text" type="java.lang.String" value="TOTA:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="etiquetaNombre12">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 1, 12)" type="code"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="4"/>
+                <Property name="text" type="java.lang.String" value="IVA:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="etiquetaNombre13">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 1, 12)" type="code"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="4"/>
+                <Property name="text" type="java.lang.String" value="SUB TOTAL:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textSubTotal_NotaVenta">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="tipoFuente.fuente(tipoFuente.Theano, 2, 20)" type="code"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="textFechaVenta_NotaVenta">
+            <Component class="javax.swing.JTextField" name="textTotal_NotaVenta">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="tipoFuente.fuente(tipoFuente.Theano, 2, 20)" type="code"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textIva_NotaVenta">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="tipoFuente.fuente(tipoFuente.Theano, 2, 20)" type="code"/>

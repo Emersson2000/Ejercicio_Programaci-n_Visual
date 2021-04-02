@@ -100,6 +100,18 @@ public class Utilidades {
 
     }
     
+    public void soloNumero(JTextField numero) {
+        numero.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent km) {
+                char c = km.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    km.consume();
+                }
+            }
+        });
+    }
+    
     public void Letras(JTextField texto) {
         texto.addKeyListener(new KeyAdapter() {
             @Override

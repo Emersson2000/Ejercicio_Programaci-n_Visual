@@ -193,7 +193,6 @@ public class Controlador_BD_Cliente {
                 }
             }
         });
-
     }
 
     public void letras(JTextField texto) {

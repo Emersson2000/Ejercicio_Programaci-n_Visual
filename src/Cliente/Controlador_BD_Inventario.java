@@ -140,7 +140,7 @@ public class Controlador_BD_Inventario {
                 pps = con.prepareStatement("UPDATE `cliente`.`inventario` SET `codigo_Pro` = '" + inventario.getCodigo_Pro() + "', `descripcion` = '" + inventario.getDescripcion() + "', `can_Productos` = '" + inventario.getCan_Productos() + "', `precio_Compra_Sin_Iva` = '" + inventario.getPrecio_CompraSinIva() + "', `precio_Compra_Con_Iva` = '" + inventario.getPrecio_CompraConIva() + "', `precio_Mayorista` = '" + inventario.getPrecio_Mayorista() + "', `precio_Cliente_Fijo` = '" + inventario.getPrecio_ClienteFijo() + "', `precio_Cliente_Normal` = '" + inventario.getPrecio_ClienteNormal() + "', `fecha_Actualizacion` = '" + utilidades.fechaRegistro(inventario.getFecha_Actualizacion()) + "' WHERE (`idInventario` = '" + inventario.getIdInventario() + "')");
             }
             pps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Persona Editada");
+//            JOptionPane.showMessageDialog(null, "Persona Editada");
             eliminar = true;
         } catch (Exception e) {
             System.out.println("Error : " + e);
