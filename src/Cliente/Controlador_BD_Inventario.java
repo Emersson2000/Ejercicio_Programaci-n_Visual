@@ -65,7 +65,6 @@ public class Controlador_BD_Inventario {
             sql = "INSERT INTO `cliente`.`inventario` ( `codigo_Pro`, `descripcion`, `can_Productos`, `precio_Compra_Sin_Iva`, `precio_Compra_Con_Iva`, `precio_Mayorista`, `precio_Cliente_Fijo`, `precio_Cliente_Normal`, `fecha_Registro`) VALUES ('" + inventario.getCodigo_Pro() + "', '" + inventario.getDescripcion() + "', '" + inventario.getCan_Productos() + "', '" + inventario.getPrecio_CompraSinIva() + "', '" + inventario.getPrecio_CompraConIva() + "', '" + inventario.getPrecio_Mayorista() + "', '" + inventario.getPrecio_ClienteFijo() + "', '" + inventario.getPrecio_ClienteNormal() + "', '" + utilidades.fechaRegistro(inventario.getFecha_Registro()) + "')";
         } else {
             sql = "INSERT INTO `cliente`.`inventario` (`codigo_Pro`, `descripcion`, `can_Productos`, `precio_Compra_Sin_Iva`, `precio_Compra_Con_Iva`, `precio_Mayorista`, `precio_Cliente_Fijo`, `precio_Cliente_Normal`, `fecha_Caducidad`, `fecha_Registro`) VALUES ('" + inventario.getCodigo_Pro() + "', '" + inventario.getDescripcion() + "', '" + inventario.getCan_Productos() + "', '" + inventario.getPrecio_CompraSinIva() + "', '" + inventario.getPrecio_CompraConIva() + "', '" + inventario.getPrecio_Mayorista() + "', '" + inventario.getPrecio_ClienteFijo() + "', '" + inventario.getPrecio_ClienteNormal() + "', '" + utilidades.fechaRegistro(inventario.getFecha_Caducidad()) + "', '" + utilidades.fechaRegistro(inventario.getFecha_Registro()) + "');";
-
         }
         try {
             con = conexion.Conexion_Mysql();
@@ -84,7 +83,7 @@ public class Controlador_BD_Inventario {
     public Inventario obtenerInventario(String nombre) {
         Inventario obtenerInventario = null;
 
-        String sql = "SELECT * FROM inventario WHERE idInventario = '" + nombre + "'";
+        String sql = "SELECT * FROM inventario WHERE idInventario = '" + nombre + "' OR codigo_Pro = '" + nombre +"'";
 
         Statement datos;
         try {

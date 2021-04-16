@@ -71,6 +71,8 @@ public class Cliente_Ventana extends javax.swing.JFrame {
     private int variableY;
     private double subtotal = 0;
     private double iva = 0;
+    private int contadorClick;
+    private boolean ejecutar;
 
     public Cliente_Ventana() {
         model = new ModeloTabla(persona.mostrarPersonasV());
@@ -88,7 +90,6 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         inventario.soloNumeros(textCodigoInventario);
         radioBotonCedula.setSelected(true);
         gestionPersona = new GestionPersona(textDNI, textNombre, textApellido, textDireccion, textCorreo, textTelefono, comboBoxGenero, comboBoxBuscar, this, dateNacimiento, tabla);
-
     }
 
     private void iniciarComponentes() {
@@ -223,7 +224,7 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         if (comboBoxBuscarInventario.getSelectedIndex() == 0) {
             tablaInventario.setModel(inventario.mostrarInventarioPorDato("codigo_Pro", buscar));
         } else if (comboBoxBuscarInventario.getSelectedIndex() == 1) {
-            tablaInventario.setModel(inventario.mostrarInventarioPorDato("descripción", buscar));
+            tablaInventario.setModel(inventario.mostrarInventarioPorDato("descripcion", buscar));
         } else if (comboBoxBuscarInventario.getSelectedIndex() == 2) {
             tablaInventario.setModel(inventario.mostrarInventarioPorDato("precio_Compra", buscar));
         } else if (comboBoxBuscarInventario.getSelectedIndex() == 3) {
@@ -1343,6 +1344,11 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         botonBusquedadAvanzada_NotaVenta.setFont(tipoFuente.fuente(tipoFuente.FightThis, 2, 18)
         );
         botonBusquedadAvanzada_NotaVenta.setText("BUSQUEDA AVANZADA");
+        botonBusquedadAvanzada_NotaVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBusquedadAvanzada_NotaVentaActionPerformed(evt);
+            }
+        });
 
         tablaNotaVenta.setFont(new java.awt.Font("Constantia", 2, 18)); // NOI18N
         tablaNotaVenta.setModel(modeloNotaVenta);
@@ -1353,6 +1359,11 @@ public class Cliente_Ventana extends javax.swing.JFrame {
         tablaNotaVenta.getTableHeader().setForeground(new Color(255, 255, 255));
         tablaNotaVenta.setRowHeight(25);
         tablaNotaVenta.setBackground(new Color(204, 255, 204));
+        tablaNotaVenta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaNotaVentaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaNotaVenta);
 
         etiquetaNombre10.setFont(tipoFuente.fuente(tipoFuente.Theano, 1, 12));
@@ -1553,7 +1564,6 @@ public class Cliente_Ventana extends javax.swing.JFrame {
 
     private void textCedulaNotaVentaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCedulaNotaVentaKeyReleased
         if (textCedulaNotaVenta.getText().length() == 10) {
-
             Persona per = persona.obtenerPersona(textCedulaNotaVenta.getText());
             if (per == null) {
                 System.out.println("Nose encontro la persona con esa cédula");
@@ -1563,8 +1573,13 @@ public class Cliente_Ventana extends javax.swing.JFrame {
                 textDireccion_NotaVenta.setText(per.getDireccion());
                 textFechaVenta_NotaVenta.setText(utilidades.fechaRegistro(new Date()));
             }
-
+        } else {
+            textNombreCliente_NotaVenta.setText("");
+            textTelefono_NotaVenta.setText("");
+            textDireccion_NotaVenta.setText("");
+            textFechaVenta_NotaVenta.setText("");
         }
+
     }//GEN-LAST:event_textCedulaNotaVentaKeyReleased
 
     private void tablaInventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaInventarioMouseClicked
@@ -1778,17 +1793,57 @@ public class Cliente_Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_textCantidad_NotaVentaFocusLost
 
     private void botonAgregar_NotaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregar_NotaVentaActionPerformed
-        double sinIva = Double.parseDouble(textCantidad_NotaVenta.getText()) * inveNotaVenta.getPrecio_CompraSinIva();
-        double conIva = Double.parseDouble(textCantidad_NotaVenta.getText()) * inveNotaVenta.getPrecio_CompraConIva();
-        tablaNotaVenta.setModel(notaVenta.tablaNotaVentas(Integer.parseInt(textCantidad_NotaVenta.getText()), inveNotaVenta.getDescripcion(), sinIva, conIva));
-        cargarTotal(sinIva);
-        inveNotaVenta.setCan_Productos(inveNotaVenta.getCan_Productos() - Integer.parseInt(textCantidad_NotaVenta.getText()));
-        inventario.editarInventario(inveNotaVenta);
-        mostrarTabla();
-        textCantidad_NotaVenta.setText("");
-        textIdProducto_NotaVenta.setText("");
+        if (!textIdProducto_NotaVenta.getText().isEmpty() && !textCantidad_NotaVenta.getText().isEmpty()) {
+            double sinIva = Double.parseDouble(textCantidad_NotaVenta.getText()) * (inveNotaVenta.getPrecio_ClienteNormal() - (inveNotaVenta.getPrecio_ClienteNormal() * 0.12));
+            double conIva = Double.parseDouble(textCantidad_NotaVenta.getText()) * inveNotaVenta.getPrecio_ClienteNormal();
+            tablaNotaVenta.setModel(notaVenta.tablaNotaVentas(Integer.parseInt(textCantidad_NotaVenta.getText()), inveNotaVenta.getDescripcion(), Double.parseDouble(utilidades.dosDecimales(sinIva)), Double.parseDouble(utilidades.dosDecimales(conIva))));
+            tablaInventario.setModel(inventario.mostrarInventarioPorDato("idInventario", ""));
+            cargarTotal(conIva);
+            inveNotaVenta.setCan_Productos(inveNotaVenta.getCan_Productos() - Integer.parseInt(textCantidad_NotaVenta.getText()));
+            inveNotaVenta.setFecha_Actualizacion(new Date());
+            inventario.editarInventario(inveNotaVenta);
+            mostrarTabla();
+            textCantidad_NotaVenta.setText("");
+            textIdProducto_NotaVenta.setText("");
+        }
 
     }//GEN-LAST:event_botonAgregar_NotaVentaActionPerformed
+
+    private void botonBusquedadAvanzada_NotaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBusquedadAvanzada_NotaVentaActionPerformed
+        Busqueda_Avanzada busquedaAvanzada = new Busqueda_Avanzada(this, true, inventario.mostrarInventarioPorDato("idInventario", ""), textIdProducto_NotaVenta, textCantidad_NotaVenta);
+        busquedaAvanzada.setVisible(true);
+    }//GEN-LAST:event_botonBusquedadAvanzada_NotaVentaActionPerformed
+
+    private void tablaNotaVentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaNotaVentaMouseClicked
+
+        int fila = tablaNotaVenta.getSelectedRow();
+        if (fila >= 0) {
+            int cantidad = Integer.parseInt((String) tablaNotaVenta.getValueAt(fila, 0));
+            String descripcion = (String) tablaNotaVenta.getValueAt(fila, 1);
+            double subTotal = Double.parseDouble((String) tablaNotaVenta.getValueAt(fila, 2));
+            double total = Double.parseDouble((String) tablaNotaVenta.getValueAt(fila, 3));
+            Producto_Venta producto = new Producto_Venta(cantidad, descripcion, subTotal, total);
+            DefaultTableModel modelo = (DefaultTableModel) tablaNotaVenta.getModel();
+            if (evt.getClickCount() == 2) {
+                if (JOptionPane.showConfirmDialog(this, "Se eliminará el item, ¿desea continuar?",
+                        "Eliminar Producto", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    quitarProductoVenta(producto);
+                    modelo.removeRow(fila); // Eliminamos la fila que hemos seleccionado
+                }
+            }
+        }
+
+
+    }//GEN-LAST:event_tablaNotaVentaMouseClicked
+
+    public void quitarProductoVenta(Producto_Venta producto) {
+        double subTotal = Double.parseDouble(textSubTotal_NotaVenta.getText()) - producto.getSubTotal();
+        double iva = Double.parseDouble(textIva_NotaVenta.getText()) - (producto.getTotal() * 0.12);
+        subtotal -= producto.getTotal();
+        textSubTotal_NotaVenta.setText(String.valueOf(utilidades.dosDecimales(subTotal)));
+        textIva_NotaVenta.setText(String.valueOf(utilidades.dosDecimales(iva)));
+        textTotal_NotaVenta.setText(utilidades.dosDecimales(subtotal));
+    }
 
     public void verificarCantidadProductos() {
         if (!textCantidad_NotaVenta.getText().isEmpty()) {
@@ -1803,11 +1858,11 @@ public class Cliente_Ventana extends javax.swing.JFrame {
 //        System.out.println(subtotal);
 //    }
 
-    public void cargarTotal(double iva) {
-        subtotal += iva;
-        textSubTotal_NotaVenta.setText(String.format("%.2f", subtotal));
-        textIva_NotaVenta.setText(String.format("%.2f", subtotal * 0.12));
-        textTotal_NotaVenta.setText(String.format("%.2f", subtotal + (subtotal * 0.12)));
+    public void cargarTotal(double conIva) {
+        subtotal += conIva;
+        textSubTotal_NotaVenta.setText(utilidades.dosDecimales(subtotal - (subtotal * 0.12)));
+        textIva_NotaVenta.setText(utilidades.dosDecimales(subtotal * 0.12));
+        textTotal_NotaVenta.setText(utilidades.dosDecimales(subtotal));
     }
 
     public void cargarPrecios(double iva) {

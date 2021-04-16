@@ -155,4 +155,7 @@ public class Utilidades {
         return formatoFecha.format(fecha);
     }
 
+    public String dosDecimales(double decimal) {
+        return String.format("%.2f", decimal);
+    }
 }

@@ -1973,6 +1973,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="BUSQUEDA AVANZADA"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonBusquedadAvanzada_NotaVentaActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane1">
               <AuxValues>
@@ -1990,6 +1993,9 @@
                       <Connection code="modeloNotaVenta" type="code"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tablaNotaVentaMouseClicked"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="  tablaNotaVenta.setBounds(0, 650, 830, 300);&#xd;&#xa;        tablaNotaVenta.getTableHeader().setFont(new Font(&quot;Constantia&quot;, Font.BOLD, 22));&#xd;&#xa;         tablaNotaVenta.getTableHeader().setOpaque(true);&#xd;&#xa;         tablaNotaVenta.getTableHeader().setBackground(new Color(32, 136, 203));&#xd;&#xa;         tablaNotaVenta.getTableHeader().setForeground(new Color(255, 255, 255));&#xd;&#xa;         tablaNotaVenta.setRowHeight(25);&#xd;&#xa;        tablaNotaVenta.setBackground(new Color(204, 255, 204));"/>
                   </AuxValues>

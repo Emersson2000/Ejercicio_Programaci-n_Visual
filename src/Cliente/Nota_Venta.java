@@ -14,7 +14,8 @@ public class Nota_Venta {
     private double iva;
     private double total;
     private int tipo_pago;
-
+    private String codigoBusquedaAvanzada;
+    
     public Nota_Venta() {
     }
 
@@ -92,6 +93,14 @@ public class Nota_Venta {
     public void setTipo_pago(int tipo_pago) {
         this.tipo_pago = tipo_pago;
     }
-    
+
+    public String getCodigoBusquedaAvanzada() {
+        return codigoBusquedaAvanzada;
+    }
+
+    public void setCodigoBusquedaAvanzada(String codigoBusquedaAvanzada) {
+        this.codigoBusquedaAvanzada = codigoBusquedaAvanzada;
+    }
+
     
 }
